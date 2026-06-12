@@ -5,7 +5,6 @@ import Footer from "../ui/footer";
 import LineSlider from "../ui/Lineslider";
 import NavigationBar from "../ui/nav";
 import SolidButton from "../ui/solidbutton";
-import { usePathname, useSearchParams } from "next/navigation";
 
 type Product = {
   name: string,
@@ -132,14 +131,13 @@ export default function Products() {
   const [filter, setFilter] = useState("");
   const [prods, setProds] = useState(products);
   const [emergs, setEmergs] = useState(emergency);
-  const pathname = usePathname(); 
-  const searchParams = useSearchParams(); // Gets query params
-  
-  const category = searchParams.get('category') ?? "";
-  const _categories = category.split("#");
 
   useEffect(() => {
     const shortList: string[] = [];
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category") ?? "";
+    const _categories = category.split("#");
+
 
     for (const prod of products) {
       for (const cat of _categories) {

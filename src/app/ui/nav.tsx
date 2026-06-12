@@ -20,15 +20,15 @@ export const menu: MenuItem[] = [
         children: [
             {
                 label: "System Design",
-                href: "#",
+                href: "/services",
             },
             {
                 label: "System Integration",
-                href: "#",
+                href: "/services",
             },
             {
                 label: "Maintenance",
-                href: "#",
+                href: "/services",
             },
             {
                 label: "Installation",
@@ -36,31 +36,34 @@ export const menu: MenuItem[] = [
                 children: [
                     {
                         label: "Fiber optic",
-                        href: "#",
+                        href: "/services",
                     },
                     {
                         label: "Radio (VHF/UHF)",
-                        href: "#",
+                        href: "/services",
                     },
                     {
                         label: "Control systems",
-                        href: "#",
+                        href: "/services",
                     },
                     {
                         label: "Security",
                         icon: "fas fa-caret-down",
                         children: [
-                            { label: "Surveillance", href: "#" },
+                            { label: "Surveillance", 
+                              href: "/services",
+                            },
                         ],
                     },
                 ],
             },
             {
                 label: "Power Systems",
-                href: "#",
+                href: "/services",
             },
         ],
     },
+
     {
         label: "Products",
         icon: "fas fa-caret-down",
@@ -70,42 +73,48 @@ export const menu: MenuItem[] = [
                 href: "/products",
             },
             {
-                label: "Radio Transmitter",
+                label: "Head End Control Unit",
                 href: "#",
             },
             {
-                label: "Scancom Network Components",
+                label: "PLCs",
                 href: "#",
             },
             {
-                label: "Ruggedized Industrial Telephones",
+                label: "Flow Metering",
                 href: "#",
             },
             {
-                label: "GSM Commander Wireless Telemetry",
+                label: "Industrial Network Switching",
+                href: "#",
+            },
+            {
+                label: "Embedded DVR",
                 href: "#",
             },
             {
                 label: "Vane Oil Pumps",
                 href: "#",
             },
-
             {
                 label: "More",
                 children: [
                     {
+                        label: "NVR Surveillance",
+                        href: "#",
+                    },
+                    {
+                        label: "Speed Switch BSD3000",
+                        href: "#",
+                    },
+                    {
+                        label: "Fluid Control",
+                        href: "#",
+                    },
+                    {
                         label: "Industrial Valves",
                         href: "#",
                     },
-                    {
-                        label: "Slack Rope",
-                        href: "#",
-                    },
-                    {
-                        label: "Vane Oil Pumps",
-                        href: "#",
-                    },
-
                 ]
             }
 
@@ -141,14 +150,13 @@ export function renderMenu(items: MenuItem[]) {
 }
 
 function renderSubMenu(items: MenuItem[]) {
-
-  
-
   return (
     <ul>
-      {items.map((item, index) => (
-        <li className="dropdown-link" key={index}>
-        <Link href={item.href ?? "#"}>
+      {items.map((item, index) => {
+        const link = `/products?category=${item.label.split(" ").join("-")}`;
+        const url = item.href ?? "#";
+        return <li className="dropdown-link" key={index}>
+        <Link href={url !== "#" ? url : link}>
             {item.label}
             {item.icon && <i className={item.icon}></i>}
           </Link>
@@ -159,7 +167,7 @@ function renderSubMenu(items: MenuItem[]) {
             </div>
           )}
         </li>
-      ))}
+      })}
       <div className="arrow"></div>
     </ul>
   );
